@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermercado Matemático</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1>🛒 Supermercado Matemático</h1>
+    <p class="subtitle">¡Resuelve ecuaciones para descubrir precios y llena tu carrito!</p>
+    
+    <div class="game-container">
+        <div class="budget">
+            <h2>💰 Presupuesto: $100.00</h2>
+            <p>Haz clic en cada producto para resolver la ecuación y ver su precio</p>
+        </div>
+        
+        <div class="items">
+            <!-- Artículo 1 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Leche (1 litro)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">2x + 10 = 20</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>2x = 20 - 10</p>
+                    <p>2x = 10</p>
+                    <p>x = 5</p>
+                    <div class="price">Precio: $5.00</div>
+                </div>
+            </div>
+            
+            <!-- Artículo 2 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Pan (1 kg)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">x² - 6x + 9 = 0</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>(x - 3) ² = 0</p>
+                    <p>x = 3 </p>
+                    <div class="price">Precio: $3.00</div>
+                </div>
+            </div>
+            
+            <!-- Artículo 3 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Huevos (docena)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">|2x - 8| = 4</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>Caso 1: 2x - 8 = 4 → x = 6</p>
+                    <p>Caso 2: 2x - 8 = -4 → x = 2</p>
+                    <p>Tomamos x = 6 (el mayor)</p>
+                    <div class="price">Precio: $6.00</div>
+                </div>
+            </div>
+            
+            <!-- Artículo 4 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Arroz (1 kg)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">3x - 5 < 10</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>3x < 15</p>
+                    <p>x < 5</p>
+                    <p>Tomamos x = 4.5</p>
+                    <div class="price">Precio: $4.50</div>
+                </div>
+            </div>
+            
+            <!-- Artículo 5 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Pollo (1 kg)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">5(x + 2) = 35</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>x + 2 = 7</p>
+                    <p>x = 5</p>
+                    <p>+ $7 por empaque especial</p>
+                    <div class="price">Precio: $12.00</div>
+                </div>
+            </div>
+            
+            <!-- Artículo 6 -->
+            <div class="item" onclick="this.classList.toggle('active')">
+                <h3>Manzanas (1 kg)</h3>
+                <p>Precio escondido en:</p>
+                <div class="equation">x/2 + 3 = 7</div>
+                <div class="solution">
+                    <p>🔍 <strong>Solución:</strong></p>
+                    <p>x/2 = 4</p>
+                    <p>x = 8</p>
+                    <div class="price">Precio: $8.00</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="total">
+            <h2>Total gastado: $0.00</h2>
+            <p>¡Intenta llegar exactamente a $100!</p>
+        </div>
+        
+        <div class="cart-items" id="cart">
+            <p style="width:100%; text-align:center; margin:0;">Tu carrito está vacío</p>
+        </div>
+        
+        <button class="checkout-btn" onclick="checkout()">¡Pagar!</button>
+        
+        <div class="message" id="message">
+            Haz clic en los productos para ver sus precios. Luego suma mentalmente para gastar $100 exactos.
+        </div>
+    </div>
+    
+    <div class="celebration" id="celebration">
+        <div class="trophy">🏆</div>
+        <div id="confetti-container"></div>
+    </div>
+    
+    <script>
+        // Simulación de carrito (solo para demostración visual)
+        function checkout() {
+            const cart = document.getElementById('cart');
+            const message = document.getElementById('message');
+            const celebration = document.getElementById('celebration');
+            
+            // Limpiar carrito
+            cart.innerHTML = '';
+            
+            // Mensaje aleatorio para demostración
+            const responses = [
+                {msg: "¡Perfecto! Gastaste exactamente $100. ¡Eres un genio matemático!", class: "success"},
+                {msg: "Casi lo logras: $95.50. ¡Intenta de nuevo!", class: "warning"},
+                {msg: "¡Oops! Te pasaste por $15. Mejor vuelve a intentarlo.", class: "error"},
+                {msg: "¡Excelente! $100 exactos. ¡Fiesta matemática!", class: "success"},
+                {msg: "$87.50 - ¡Casi llegas! Revisa tus cálculos.", class: "warning"}
+            ];
+            
+            const response = responses[Math.floor(Math.random() * responses.length)];
+            
+            message.className = "message " + response.class;
+            message.textContent = response.msg;
+            
+            // Añadir algunos ítems al carrito para demostración
+            const demoItems = ["Leche $5", "Pan $3", "Huevos $6", "Arroz $4.50", "Pollo $12", "Manzanas $8"];
+            
+            demoItems.forEach((item, i) => {
+                if (Math.random() > 0.3) { // 70% de probabilidad de añadir cada ítem
+                    setTimeout(() => {
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.textContent = item;
+                        cart.appendChild(cartItem);
+                        
+                        // Eliminar el mensaje de carrito vacío si existe
+                        const emptyMsg = cart.querySelector('p');
+                        if (emptyMsg) cart.removeChild(emptyMsg);
+                    }, i * 200);
+                }
+            });
+            
+            // Mostrar celebración si fue éxito
+            if (response.class === "success") {
+                celebration.classList.add('active');
+                createConfetti();
+                setTimeout(() => celebration.classList.remove('active'), 3000);
+            }
+        }
+        
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(confetti);
+            }
+        }
+        
+        function getRandomColor() {
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#292F36', '#F7FFF7'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
